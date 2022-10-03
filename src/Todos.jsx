@@ -37,6 +37,7 @@ const Todos = () => {
       },
     ]);
     setInputValue('');
+    setShowInputContainer(!showInputContainer);
   };
 
   const deleteItem = (id) => {
@@ -74,18 +75,24 @@ const Todos = () => {
         }}
         className={
           showInputContainer
-            ? 'bg-orange-500 text-white text-2xl px-6 py-3 rounded-md'
+            ? 'bg-orange-500 text-white text-xl md:text-2xl  px-4 py-2 md:px-6 md:py-3 rounded-md'
             : 'hidden'
         }
       >
         Add a todo
       </button>
-      <form>
+      <form
+        className={
+          showInputContainer
+            ? 'hidden'
+            : 'border border-gray-300 pt-8 p-5 rounded-md inline-block'
+        }
+      >
         <input
           className={
             showInputContainer
               ? ' hidden '
-              : 'block placeholder:text-gray-300 border-b-2 px-12 py-3 text-center border-orange-200 focus:border-orange-500 focus:outline-none'
+              : 'block placeholder:text-gray-300 border-b-2 px-12  text-center border-orange-200 focus:border-orange-500 focus:outline-none'
           }
           placeholder="Add item to the list"
           value={inputValue}
@@ -93,7 +100,11 @@ const Todos = () => {
             additem(e);
           }}
         />
-        <div className={showInputContainer ? 'hidden' : 'flex gap-x-10 py-10'}>
+        <div
+          className={
+            showInputContainer ? 'hidden' : 'flex justify-center gap-x-10 pt-5'
+          }
+        >
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -115,53 +126,56 @@ const Todos = () => {
         </div>
       </form>
       <div>
-        <h2 className="text-gray-700 text-2xl pt-10 font-bold py-10">
+        <h2 className="text-gray-700 text-lg md:text-2xl pt-5 md:pt-8 font-bold">
           Things to get done
         </h2>
         {items.map((element, ind) => {
           return (
             element.status === 'unChecked' && (
-              <div key={ind} className="flex items-center pt-5 gap-y-5">
-                <div className=" flex items-center gap-x-3 pr-10">
-                  <div className="w-4 h-4 appearance-none default:ring-2 checked:bg-orange-400">
+              <div
+                key={ind}
+                className="flex items-center  text-lg md:text-xl py-1"
+              >
+                <div className=" flex items-center justify-center gap-x-3 pr-10">
+                  <div className="w-3 h-3 md:w-4 md:h-4 flex self-center appearance-none default:ring-2 checked:bg-orange-400">
                     <input
                       id={ind}
                       onChange={() => setAccordingly(element.id, 'check')}
-                      className="pr-5 w-full h-full"
+                      className="pr-5 w-full h-full self-center"
                       type="checkbox"
                       checked={false}
                     />
                   </div>
-                  <label htmlFor={ind} className="text-2xl inline">
+                  <label htmlFor={ind} className="text-lg md:text-xl inline">
                     {element.value}
                   </label>
                 </div>
                 <button onClick={() => deleteItem(ind)}>
-                  <AiOutlineClose className="text-gray-400" />
+                  <AiOutlineClose className="text-gray-400 text-lg" />
                 </button>
               </div>
             )
           );
         })}
         <div>
-          <h2 className="text-gray-700 text-2xl pt-10 font-bold py-10">
+          <h2 className="text-gray-700 text-lg md:text-2xl pt-5 md:pt-8 font-bold ">
             Things done
           </h2>
           {items.map(
             (element, ind) =>
               element.status === 'checked' && (
-                <div key={ind} className="flex items-center pt-5 gap-y-5">
-                  <div className=" flex items-center gap-x-3">
-                    <div className="w-4 h-4 appearance-none default:ring-2 checked:bg-orange-400">
+                <div key={ind} className="flex items-center  py-1">
+                  <div className=" flex items-center text-lg md:text-2xl gap-x-3">
+                    <div className="w-3 h-3 md:w-4 md:h-4 flex self-center appearance-none default:ring-2 checked:bg-orange-400">
                       <input
                         id={ind}
                         onChange={() => setAccordingly(element.id)}
-                        className="pr-5 w-full h-full"
+                        className="pr-5 self-center w-full h-full"
                         type="checkbox"
                         checked={true}
                       />
                     </div>
-                    <label htmlFor={ind} className="text-2xl inline">
+                    <label htmlFor={ind} className="text-lg md:text-xl inline">
                       {element.value}
                     </label>
                   </div>
